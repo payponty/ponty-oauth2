@@ -91,18 +91,18 @@ describe OAuth2::Client do
 
   %w(authorize token).each do |url_type|
     describe ":#{url_type}_url option" do
-      it "defaults to a path of /oauth/#{url_type}" do
-        expect(subject.send("#{url_type}_url")).to eq("https://api.example.com/oauth/#{url_type}")
+      it "defaults to a path of /admin/oauth/#{url_type}" do
+        expect(subject.send("#{url_type}_url")).to eq("https://api.example.com/admin/oauth/#{url_type}")
       end
 
       it "is settable via the :#{url_type}_url option" do
-        subject.options[:"#{url_type}_url"] = '/oauth/custom'
-        expect(subject.send("#{url_type}_url")).to eq('https://api.example.com/oauth/custom')
+        subject.options[:"#{url_type}_url"] = '/admin/oauth/custom'
+        expect(subject.send("#{url_type}_url")).to eq('https://api.example.com/admin/oauth/custom')
       end
 
       it 'allows a different host than the site' do
-        subject.options[:"#{url_type}_url"] = 'https://api.foo.com/oauth/custom'
-        expect(subject.send("#{url_type}_url")).to eq('https://api.foo.com/oauth/custom')
+        subject.options[:"#{url_type}_url"] = 'https://api.foo.com/admin/oauth/custom'
+        expect(subject.send("#{url_type}_url")).to eq('https://api.foo.com/admin/oauth/custom')
       end
     end
   end

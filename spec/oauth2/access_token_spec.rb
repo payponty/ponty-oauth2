@@ -12,7 +12,7 @@ describe AccessToken do
           stub.send(verb, "/token/query?access_token=#{token}") { |env| [200, {}, Addressable::URI.parse(env[:url]).query_values['access_token']] }
           stub.send(verb, '/token/body') { |env| [200, {}, env[:body]] }
         end
-        stub.post('/oauth/token') { |env| [200, {'Content-Type' => 'application/json'}, refresh_body] }
+        stub.post('/admin/oauth/token') { |env| [200, {'Content-Type' => 'application/json'}, refresh_body] }
       end
     end
   end

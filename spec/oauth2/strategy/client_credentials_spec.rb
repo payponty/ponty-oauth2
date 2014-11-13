@@ -7,7 +7,7 @@ describe OAuth2::Strategy::ClientCredentials do
   let(:client) do
     OAuth2::Client.new('abc', 'def', :site => 'http://api.example.com') do |builder|
       builder.adapter :test do |stub|
-        stub.post('/oauth/token', 'grant_type' => 'client_credentials') do |env|
+        stub.post('/admin/oauth/token', 'grant_type' => 'client_credentials') do |env|
           client_id, client_secret = Base64.decode64(env[:request_headers]['Authorization'].split(' ', 2)[1]).split(':', 2)
           client_id == 'abc' && client_secret == 'def' || fail(Faraday::Adapter::Test::Stubs::NotFound)
           case @mode
@@ -17,7 +17,7 @@ describe OAuth2::Strategy::ClientCredentials do
             [200, {'Content-Type' => 'application/json'}, json_token]
           end
         end
-        stub.post('/oauth/token', 'client_id' => 'abc', 'client_secret' => 'def', 'grant_type' => 'client_credentials') do |env|
+        stub.post('/admin/oauth/token', 'client_id' => 'abc', 'client_secret' => 'def', 'grant_type' => 'client_credentials') do |env|
           case @mode
           when 'formencoded'
             [200, {'Content-Type' => 'application/x-www-form-urlencoded'}, kvform_token]
